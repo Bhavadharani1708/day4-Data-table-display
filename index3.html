@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Machine Table</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 15px;
+            width: 200px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+
+        /* alternating row colors */
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Machine Data</h2>
+
+<!-- Search box -->
+<input type="text" id="search" placeholder="Search by machine name..." onkeyup="filterTable()">
+
+<!-- Table -->
+<table id="machineTable">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Temperature</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+    // Array of machines
+    const machines = [
+        {name: "Machine A", location: "Chennai", status: "Running", temperature: 45},
+        {name: "Machine B", location: "Trichy", status: "Stopped", temperature: 30},
+        {name: "Machine C", location: "Madurai", status: "Maintenance", temperature: 50},
+        {name: "Machine D", location: "Coimbatore", status: "Running", temperature: 40},
+        {name: "Machine E", location: "Salem", status: "Running", temperature: 42}
+    ];
+
+    // Render table
+    function displayTable(data) {
+        let tableBody = document.querySelector("#machineTable tbody");
+        tableBody.innerHTML = "";
+
+        data.forEach(machine => {
+            let row = `<tr>
+                <td>${machine.name}</td>
+                <td>${machine.location}</td>
+                <td>${machine.status}</td>
+                <td>${machine.temperature}</td>
+            </tr>`;
+            tableBody.innerHTML += row;
+        });
+    }
+
+    // Filter function
+    function filterTable() {
+        let searchValue = document.getElementById("search").value.toLowerCase();
+
+        let filtered = machines.filter(machine =>
+            machine.name.toLowerCase().includes(searchValue)
+        );
+
+        displayTable(filtered);
+    }
+
+    // Initial display
+    displayTable(machines);
+</script>
+
+</body>
+</html>
